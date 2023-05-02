@@ -10,26 +10,13 @@ const client = new Client({
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
 
+// By https://github.com/Nekros-dsc
+
     const channel = await client.channels.fetch(config.client.bumpChannel)
-    
-    async function bump() {
+          setInterval(function () {
         await channel.sendSlash('302050872383242240', 'bump')
         console.count('Bumped!')
-    }
-
-    // By https://github.com/Nekros-dsc
-
-    function loop() {
-        // Send bump message every 2 hours, to prevent detection.
-        const delay = 2 * 60 * 60 * 1000 // 2 heures en millisecondes
-        setTimeout(function () {
-            bump()
-            loop()
-        }, delay)
-    }
-    
-    bump()
-    loop()
+        }, 2 * 60 * 60 * 1000)
 })
 
 client.login(config.client.token);
